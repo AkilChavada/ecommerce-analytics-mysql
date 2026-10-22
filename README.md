@@ -4,7 +4,7 @@
 ![MySQL](https://img.shields.io/badge/Database-MySQL_8.0+-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![Data Analysis](https://img.shields.io/badge/Role-Data_Analyst-FF6F00?style=for-the-badge)
 ![SQL Techniques](https://img.shields.io/badge/Techniques-CTEs_|_Window_Functions_|_RFM_|_Cohorts-blue?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
 
 ---
 
