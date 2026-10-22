@@ -120,13 +120,11 @@ erDiagram
 ecommerce-analytics-mysql/
 ├── README.md                           # Comprehensive portfolio presentation & findings
 ├── sql/
-│   ├── 01_schema_ddl.sql               # Star-schema DDL with constraints, types, and indexes
-│   ├── 02_seed_data.sql                # 2024–2026 multi-year realistic synthetic dataset
-│   ├── 03_analytical_queries.sql       # 10 advanced business intelligence & analytics queries
-│   └── 04_views_and_procedures.sql     # Executive BI Views & Customer 360 Stored Procedures
-└── scripts/
-    ├── generate_data.py                # Reproducible synthetic data generation script
-    └── verify_project.py               # Data integrity and foreign-key validation test suite
+    ├── 01_schema_ddl.sql               # Star-schema DDL with constraints, types, and indexes
+    ├── 02_seed_data.sql                # 2024–2026 multi-year realistic synthetic dataset
+    ├── 03_analytical_queries.sql       # 10 advanced business intelligence & analytics queries
+    └── 04_views_and_procedures.sql     # Executive BI Views & Customer 360 Stored Procedures
+
 ```
 
 ---
@@ -174,70 +172,3 @@ The repository features **10 advanced SQL queries** designed to demonstrate adva
 
 ---
 
-## ⚙️ Quickstart & Setup Guide
-
-### Option 1: MySQL Workbench / DBeaver / Navicat (Recommended GUI)
-1. Open your database client and connect to your MySQL 8.0+ server.
-2. Open and execute `sql/01_schema_ddl.sql` to create the database schema, tables, and indexes.
-3. Open and execute `sql/02_seed_data.sql` to populate the synthetic transactional history.
-4. Open and execute `sql/04_views_and_procedures.sql` to compile executive BI views and stored procedures.
-5. Open `sql/03_analytical_queries.sql` and run any analytical query to explore business insights!
-
-### Option 2: MySQL Command Line Client (Terminal)
-```bash
-# Clone the repository
-git clone https://github.com/your-username/ecommerce-analytics-mysql.git
-cd ecommerce-analytics-mysql
-
-# Run initialization scripts in sequence
-mysql -u root -p < sql/01_schema_ddl.sql
-mysql -u root -p novamart_db < sql/02_seed_data.sql
-mysql -u root -p novamart_db < sql/04_views_and_procedures.sql
-
-# Test Customer 360 Stored Procedure
-mysql -u root -p novamart_db -e "CALL sp_get_customer_360(1);"
-```
-
-### Option 3: Run Validation Suite
-To verify that your dataset maintains 100% referential integrity and zero orphan foreign keys:
-```bash
-python scripts/verify_project.py
-```
-
----
-
-## 📈 Power BI / Tableau Integration
-
-The project includes pre-built database views tailored for business intelligence dashboards:
-- `view_executive_monthly_kpis`: Connect directly as a primary data source for executive financial overview cards and MoM trend lines.
-- `view_customer_lifetime_value`: Ideal for scatter plots analyzing Customer Tenure vs. Lifetime Net Spend.
-- `view_product_performance_matrix`: Designed for tree-maps and quadrant bubble charts showing margin percentage vs. units sold.
-
----
-
-## 📝 Resume & Portfolio Bullet Points
-
-Here are sample bullet points you can add directly to your **Resume** or **LinkedIn Profile**:
-
-> **E-Commerce Business Intelligence & Analytics Platform (MySQL 8.0+)**
-> - Architected a 3NF normalized relational database schema (7 tables, 500+ records) modeling multi-year customer transactions, product catalogs, and marketing campaigns.
-> - Engineered 10 complex analytical queries utilizing MySQL 8.0 window functions (`LAG`, `LEAD`, `NTILE`), multi-level CTEs, and self-joins to deliver actionable executive metrics.
-> - Built an RFM customer segmentation engine and monthly cohort retention matrix that pinpointed a 68% drop-off in Month-1 repeat purchasing, driving recommended onboarding workflows.
-> - Implemented market basket affinity analysis and inventory run-rate models that identified critical stockout risks and high-conversion cross-sell product bundles.
-> - Designed 3 optimized database reporting views and stored procedures to streamline automated dashboard data feeds for Power BI and Tableau.
-
----
-
-## 💬 Common Interview Discussion Topics
-
-1. **"Why did you use `NTILE(4)` for RFM segmentation instead of hardcoded thresholds?"**
-   - *Answer*: `NTILE(4)` divides customers into relative quartiles based on empirical distribution rather than arbitrary cutoff values. This allows the segmentation to dynamically adapt as overall order frequency or spending shifts over time.
-2. **"How does your Cohort Retention query calculate monthly return rates?"**
-   - *Answer*: The query uses a CTE to capture each customer's first purchase month (Cohort Month), self-joins subsequent orders, uses `TIMESTAMPDIFF(MONTH)` to calculate the elapsed month interval ($M_0, M_1, \dots, M_n$), and dynamically computes the percentage of active users relative to the baseline cohort size.
-3. **"How do you prevent duplicate pairs in Market Basket Analysis?"**
-   - *Answer*: By utilizing a non-equi join condition `oi1.product_id < oi2.product_id`, we ensure that symmetric pairs (e.g., Product A + Product B and Product B + Product A) are only counted once, eliminating redundancy and halving computation overhead.
-
----
-
-## 📄 License
-This project is open-source and available under the [MIT License](LICENSE).
